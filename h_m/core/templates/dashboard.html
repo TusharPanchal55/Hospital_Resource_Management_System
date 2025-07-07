@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <h2 class="text-center mb-4">Hospital Resource Dashboard</h2>
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Add Resource Usage</h5>
+          <p class="card-text">Enter Resource Usage details.</p>
+          <a href="{% url 'add' %}" class="btn btn-primary">Add Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">View Usage Records</h5>
+          <p class="card-text">Check past usage entries.</p>
+          <a href="{% url 'list' %}" class="btn btn-primary">View Records</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Forecast -->
+  <div class="row mt-4">
+    <div class="col-md-8 offset-md-2">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">AI Forecast</h5>
+          <p class="card-text">Predict upcoming needs using AI.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Inactivity Modal -->
+<div class="modal fade" id="sessionModal" tabindex="-1" aria-labelledby="sessionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">⚠️ Inactivity Warning</h5>
+      </div>
+      <div class="modal-body">
+        You will be logged out in <span id="countdown">5</span> seconds due to inactivity.
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-secondary" onclick="stayLoggedIn()">Stay Logged In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  const inactivityLimit = 1800;  // total seconds before logout
+  const warningThreshold = 60;  // seconds before logout to show modal
+  let counter = 0;
+  let modalShown = false;
+  let countdownInterval = null;
+
+  const resetTimer = () => {
+    counter = 0;
+    if (modalShown) {
+      const modal = bootstrap.Modal.getInstance(document.getElementById('sessionModal'));
+      if (modal) modal.hide();
+      clearInterval(countdownInterval);
+      modalShown = false;
+    }
+  };
+
+  const stayLoggedIn = () => {
+    resetTimer();
+  };
+
+  const autoLogout = () => {
+    window.location.href = "{% url 'logout' %}";
+  };
+
+  const showModalWithCountdown = () => {
+    modalShown = true;
+    const modal = new bootstrap.Modal(document.getElementById('sessionModal'));
+    modal.show();
+
+    let countdown = warningThreshold;
+    document.getElementById('countdown').textContent = countdown;
+
+    countdownInterval = setInterval(() => {
+      countdown -= 1;
+      document.getElementById('countdown').textContent = countdown;
+      if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        autoLogout();
+      }
+    }, 1000);
+  };
+
+  setInterval(() => {
+    counter++;
+    if (counter === inactivityLimit - warningThreshold && !modalShown) {
+      showModalWithCountdown();
+    } else if (counter >= inactivityLimit && !modalShown) {
+      autoLogout();
+    }
+  }, 1000);
+
+  // Reset on user activity
+  ['click'].forEach(evt => {
+    window.addEventListener(evt, resetTimer);
+  });
+</script>
+{% endblock %}

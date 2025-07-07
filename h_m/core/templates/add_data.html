@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    {% if 'add_page' in message.tags %}
+      <div class="alert alert-success alert-dismissible fade show message-box text-center" role="alert">
+        {{ message }}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+<!-- Litepicker CSS -->
+<link href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css" rel="stylesheet"/>
+
+<style>
+  body {
+    background-color: #f4faff;
+  }
+  .card {
+    border: 1px solid #007bff;
+  }
+  .card-header {
+    background-color: #007bff;
+    color: white;
+  }
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  .message-box {
+    transition: opacity 3s ease-out;
+  }
+  .message-box.fade {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<div class="container-fluid mt-3 px-0">
+  <div class="d-flex justify-content-start">
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-primary ms-5 mb-2">
+      ← Back to Home
+    </a>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow rounded">
+        <div class="card-header text-center">
+          <h4>Add Daily Resource Usage</h4>
+        </div>
+        <div class="card-body">
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <!-- Date Field -->
+            <div class="mb-3">
+              <label for="id_date" class="form-label">Date</label>
+              <input type="text" class="form-control" id="id_date" name="date" required placeholder="YYYY-MM-DD">
+            </div>
+
+            <!-- PPE Kits Used -->
+            <div class="mb-3">
+              <label for="id_ppe_kits" class="form-label">PPE Kits Used</label>
+              <input type="number" class="form-control" id="id_ppe_kits" name="ppe_kits" min="0" required placeholder="0">
+            </div>
+
+            <!-- ICU Beds Used -->
+            <div class="mb-3">
+              <label for="id_icu_beds_used" class="form-label">ICU Beds Used</label>
+              <input type="number" class="form-control" id="id_icu_beds_used" name="icu_beds_used" min="0" required placeholder="0">
+            </div>
+
+            <!-- Oxygen Cylinders -->
+            <div class="mb-3">
+              <label for="id_oxy_cylinders" class="form-label">Oxygen Cylinders Used</label>
+              <input type="number" class="form-control" id="id_oxy_cylinders" name="oxy_cylinders" min="0" required placeholder="0">
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Save Entry</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Litepicker JS -->
+<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+
+<script>
+  // ✅ Initialize Litepicker with maxDate = today
+  document.addEventListener("DOMContentLoaded", function () {
+    const today = new Date().toISOString().split('T')[0];
+    new Litepicker({
+      element: document.getElementById('id_date'),
+      format: "YYYY-MM-DD",
+      maxDate: today,
+      allowRepick: true,
+      autoApply: true,
+      dropdowns: {
+        minYear: 2023,
+        maxYear: new Date().getFullYear(),
+        months: true,
+        years: true
+      }
+    });
+  });
+</script>
+
+<script>
+  // Auto dismiss success message
+  setTimeout(function () {
+    const alertBox = document.querySelector('.message-box');
+    if (alertBox) {
+      alertBox.classList.remove('show');
+      alertBox.classList.add('fade');
+    }
+  }, 3000);
+</script>
+
+{% endblock %}
