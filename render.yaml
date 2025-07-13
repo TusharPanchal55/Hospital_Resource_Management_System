@@ -1,11 +1,9 @@
 services:
   - type: web
-    name: hospital-system
-    runtime: python
+    name: Hospital_Resource_Management_System
+    env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn h_m.wsgi:application
+    startCommand: gunicorn h_m.wsgi
     envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: h_m.settings
       - key: PYTHON_VERSION
         value: 3.10.10
