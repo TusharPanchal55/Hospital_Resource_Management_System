@@ -3,7 +3,8 @@ services:
     name: Hospital_Resource_Management_System
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn h_m.wsgi
+    startCommand: h_m.h_m.wsgi:application
+
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.10
