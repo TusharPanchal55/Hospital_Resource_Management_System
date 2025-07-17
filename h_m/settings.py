@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hbis2zakjb@2+c%b1ix3e&iz5sm(vz2+uu&x-8dr+&r38q8=p%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://hospital-resource-management-system-2.onrender.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://hospital-resource-management-system-2.onrender.com/']
 DEBUG = False
 
 # Application definition
