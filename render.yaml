@@ -6,11 +6,4 @@ services:
     startCommand: gunicorn h_m.h_m.wsgi:application
     envVars:
       - key: PYTHON_VERSION
-<<<<<<< HEAD
         value: 	3.11.9
-
-=======
-        value: 	3.13.4
-      - key: DJANGO_SETTINGS_MODULE
-        value: h_m.settings
->>>>>>> 8a8834a (Fix: Set full PYTHON_VERSION in render.yaml)
