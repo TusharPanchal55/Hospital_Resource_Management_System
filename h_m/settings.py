@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-hbis2zakjb@2+c%b1ix3e&iz5sm(vz2+uu&x-8dr+&r38q8=p%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['https://hospital-resource-management-system-1.onrender.com']
+DEBUG = False
 
 # Application definition
 
@@ -48,9 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middleware.auto_logout.AutoLogoutMiddleware',
-
-    
+    'core.middleware.auto_logout.AutoLogoutMiddleware',    
 ]
 
 ROOT_URLCONF = 'h_m.urls'
@@ -128,6 +126,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
