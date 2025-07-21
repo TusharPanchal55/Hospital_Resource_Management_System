@@ -136,7 +136,7 @@ python manage.py runserver
 
 ```markdown
 ![Login](ScreenShots/login.png)
-![Prediction Output](screenshots/prediction.png)
+![SignUp](ScreenShots/prediction.png)
 ```
 
 ---
