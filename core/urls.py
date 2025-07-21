@@ -14,7 +14,7 @@ urlpatterns = [
     path('add_data/', views.add_view, name='add'),
     path('list/', views.list_view, name='list'),
     path('dashboard/', views.dashboard_view, name='dashboard'),
-    path('login/', custom_login_view, name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('signup/', views.signup_view, name='signup'),
     path('logout/', custom_login_view, name='logout'),
 ]
