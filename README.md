@@ -135,8 +135,12 @@ python manage.py runserver
 > *(Add screenshots in the repo folder and link them here like below)*
 
 ```markdown
-![Login](ScreenShots/login.png)
-![SignUp](ScreenShots/prediction.png)
+### 🔐 Login Page
+![Login](screenshots/login.png)
+
+### 📈 Prediction Output
+![Prediction](screenshots/prediction.png)
+
 ```
 
 ---
