@@ -6,3 +6,5 @@ db = client['hospital_db']  # your database name
 # collections
 users_collection = db['users']
 usage_collection = db['resources']
+
+
